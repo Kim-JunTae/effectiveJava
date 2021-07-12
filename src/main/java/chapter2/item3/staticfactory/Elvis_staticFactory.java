@@ -6,7 +6,7 @@ public class Elvis_staticFactory {
 
     private Elvis_staticFactory() { }
 
-    public static Elvis_staticFactory getInstance() { return INSTANCE; }
+    public static Elvis_staticFactory getInstance() { return new Elvis_staticFactory(); }
 
     public void leaveTheBuilding() {
         System.out.println("Whoa baby, I'm outta here!");

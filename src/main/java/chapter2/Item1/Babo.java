@@ -14,6 +14,11 @@ public class Babo {
     public Babo() {
     }
 
+    public Babo(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
+
     public Babo(String name) {
         this.name = name;
     }
@@ -41,12 +46,17 @@ public class Babo {
         return IS_ME;
     }
 
+    //서비스 접근 API
     public static Babo getBabo(boolean flag){
+
+        //추가 -  서비스인터페이스, 제공자 등록 API
+
         return flag ? new Babo() : new UnderBabo();
     }
 
     public static void main(String[] args) {
         Babo babo = new Babo("jun");
+
         Babo babo1 = Babo.withName("jun");
 
         Babo babo2 = Babo.getBabo();

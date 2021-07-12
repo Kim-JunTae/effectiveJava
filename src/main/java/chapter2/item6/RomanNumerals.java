@@ -27,7 +27,7 @@ public class RomanNumerals {
             long start = System.nanoTime();
             for (int j = 0; j < numReps; j++) {
                 // 성능 차이를 확인하려면 xxxSlow 메서드를 xxxFast 메서드로 바꿔 실행해보자.
-                b ^= isRomanNumeralSlow("MCMLXXVI");
+                b ^= isRomanNumeralFast("MCMLXXVI");
             }
             long end = System.nanoTime();
             System.out.println(((end - start) / (1_000. * numReps)) + " μs.");

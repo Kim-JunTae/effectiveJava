@@ -10,7 +10,7 @@ public class SingletonTest {
         Elvis_field field = Elvis_field.INSTANCE;
 
         //2. 정적 팩터리 방식의 싱글턴
-        Elvis_staticFactory staticFactory = Elvis_staticFactory.getInstance();
+        Elvis_staticFactory staticFactory = Elvis_staticFactory.getInstance(); //API 변경 X
 
         //3. EnumType
         Elvis_enumType enumType = Elvis_enumType.INSTANCE;
