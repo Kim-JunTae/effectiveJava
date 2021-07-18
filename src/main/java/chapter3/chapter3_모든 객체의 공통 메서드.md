@@ -170,11 +170,62 @@
       하지만 걱정마시라. Item10에서 이야기한 AutoValue 프레임워크를 사용하면 멋진 equals와 hashCode를 자동으로 만들어 준다.
       IDE들도 이런 기능을 일부 제공한다.
 
----
-### Item12. toString을 항상 재정의하라
+-  [Java Eqauls와 hashCode](https://nesoy.github.io/articles/2018-06/Java-equals-hashcode)
 
 ---
+### Item12. toString을 항상 재정의하라
+- Object의 기본 toString 메서드가 반환하는 것은?
+    ```
+      public String toString() {
+          return getClass().getName() + "@" + Integer.toHexString(hashCode());
+      }
+    ```
+    - 단순히 클래스 이름@16진수로 표시한 해시코드를 반환
+
+- toString을 잘 구현한 클래스는 사용하기에 훨씬 즐겁고, 그 클래스를 사용한 시스템은 디버깅하기 쉽다.
+- toString 메서드는 객체를 println, printf, 문자열 연결 연산자(+), assert 구문을 넘길 때,   
+  혹은 디버거가 객체를 출력할 때 자동으로 불린다.
+    - [assert이란? 1](https://javacan.tistory.com/entry/79)
+    - [assert이란? 2](https://devuna.tistory.com/39)
+    - [assert이란? 3](https://epthffh.tistory.com/entry/Junit%EC%9D%84-%EC%9D%B4%EC%9A%A9%ED%95%9C-%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8)
+
+- 실전에서 toString은 그 객체가 가진 주요 정보 모두를 반환하는게 좋다.
+- 단점? 포맷을 한번 명시하면 (그 클래스가 많이 쓰인다면) 그 포맷에 얽매이게 된다.
+- 포맷을 명시하든 아니든 여러분의 의도는 명확히 밝혀야 한다.
+- 포맷 명시 여부와 상관없이 toString이 반환한 값에 포함된 정보를 얻어올 수 있는 API를 제공하자.
+
+- 핵심 정리
+    - 모든 구체 클래스에서 Object의 toString을 재정의하자. 상위 클래스에서 이미 알맞게 재정의한 경우는 예외다.   
+      toString을 재정의한 클래스는 사용하기도 즐겁고 그 클래스를 사용한 시스템을 디버깅하기 쉽게 해준다.   
+      toString은 해당 객체에 관한 명확하고 유요한 정보를 읽기 좋은 형태로 반환해야 한다.
+      
+---
 ### Item13. clone 재정의는 주의해서 진행하라
+- 실무에서 Cloneable을 구현한 클래스는 clone 메서드를 public(원래 protected)으로 제공하며,   
+  사용자는 당연히 복제가 제대로 이뤄지리라 기대한다.
+  
+- clone 메서드는 사실상 생성자와 같은 효과를 낸다.   
+  즉, clone은 원본 객체에 아무런 해를 끼치지 않는 동시에 복제된 객체의 불변식을 보장해야한다.
+  
+- ...
+
+- 핵심 정리
+    - Cloneable이 몰고 온 모든 문제를 되짚어봤을 때, 새로운 인터페이스를 만들 때는 절대 Cloneable을 확장해서는 안되며, 새로운 클래스도 이를 구현해서는 안된다.   
+      final 클래스라면 Cloneable을 구현해도 위험이 크지 않지만, 성능 최적화 관점에서 검토한 후 별다른 문제가 없을 때만 드물게 허용해야 한다.(Item67)   
+      기본 원칙은 '복제 기능은 생성자와 팩터리를 이용하는 게 최고'라는 것이다. 단 배열만은 clone 메서드 방식이 가장 깔끔한, 이 규칙의 합당한 예외라 할 수 있따.
 
 ---
 ### Item14. Comparable을 구현할지 고려하라
+- Comparable 인터페이스의 유일무이한 메서드인 compareTo를 알아보자.
+- Object 메서드 X, 성격은 두 가지만 빼면, Object의 equals와 같다.
+- compareTo는 단순 동치성 비교 + 순서까지 비교할 수 있으며, 제네릭하다.(제네릭하다?)
+    - [제네릭의 이해](https://st-lab.tistory.com/153)
+
+- ...
+
+- 핵심 정리
+    - 순서를 고려해야 하는 값 클래스를 작성한다면 꼭 Comparable 인터페이스를 구현하여,   
+      그 인스턴스들을 쉽게 정렬하고, 검색하고, 비교 기능을 제공하는 컬렉션과 어우러지도록 해야 한다.
+      compareTo 메서드에서 필드의 값을 비교할 때 < 와 > 연산자는 쓰지 말아야 한다.   
+      그 대신 박싱된 기본 타입 클래스가 제공하는 정적 compare 메서드나   
+      Comparator 인터페이스가 제공하는 비교자 생성 메서드를 사용하자.
