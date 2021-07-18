@@ -33,7 +33,7 @@
 
 - equals를 재정의해야 할 때
     - 객체 식별성(object identity; 두 객체가 물리적으로 같은가)이 아니라 논리적 동치성을 확인해야 하는데,   
-      상위 클래스의 equals가  논리적 동치성을 비교하도록 재정의되지 않았을 때다.
+      상위 클래스의 equals가 논리적 동치성을 비교하도록 재정의되지 않았을 때다.
       
     - 주로 값 클래스들이 이에 해당한다. - Integer, String 같은 값을 표현하는 클래스들
     - 값이 같은 인스턴스가 둘 이상 만들어지지 않음을 보장하는 인스턴스 통제 클래스(Item1)나,    
@@ -72,6 +72,7 @@
                    }   
                    //... 생략
               }
+            
            ```
            - 위의 예제코드에서 CaseInsensitiveString의 equals는 순진하게 일반 문자열과도 비교를 시도한다.
            - String의 equals는 일반 String만 알고 있기 때문에 둘의 equals 반환값이 다르다. -> 대칭성 위배
@@ -133,6 +134,8 @@
     - 핵심정리
         - 꼭 필요한 경우가 아니면 equals를 재정의하지 말자. 많은 경우에 Object의 equals가 여러분이 원하는 비교를 정확히 수행해준다.   
           재정의해야할 때는 그 클래스의 핵심 필드 모두를 빠짐없이, 다섯 가지 규약을 확실히 지켜가며 비교해야 한다.
+
+- [instanceof, getClass()](https://stackoverflow.com/questions/4989818/instanceof-vs-getclass/4989843#4989843)
         
 ---
 ### Item11. equals를 재정의하려거든 hashCode도 재정의하라
@@ -171,7 +174,12 @@
       IDE들도 이런 기능을 일부 제공한다.
 
 -  [Java Eqauls와 hashCode](https://nesoy.github.io/articles/2018-06/Java-equals-hashcode)
+-  [@EqualsAndHashCode]()
 
+- Q : equals를 재정의했을 때 hashCode를 재정의해야되는 이유는?
+- A : Object 명세에 따르면 equals(Object)가 두 객체를 같다고 판단했다면, 두 객체의 hashCode는 똑같은 값을 반환해야한다.
+      equals를 재정의하고, hashCode를 재정의하지 않았을 때 논리적 동치인 두 객체는 서로 다른 해시코드를 반환하기 때문에 hashCode를 재정의 해야 한다.
+      
 ---
 ### Item12. toString을 항상 재정의하라
 - Object의 기본 toString 메서드가 반환하는 것은?
@@ -222,6 +230,10 @@
     - [제네릭의 이해](https://st-lab.tistory.com/153)
 
 - ...
+
+- [Comparable, Comparator의 이해1](https://st-lab.tistory.com/243)
+- [Comparable, Comparator의 이해2](https://dev-daddy.tistory.com/23)
+- [Comparable, Comparator의 이해3](https://gmlwjd9405.github.io/2018/09/06/java-comparable-and-comparator.html)
 
 - 핵심 정리
     - 순서를 고려해야 하는 값 클래스를 작성한다면 꼭 Comparable 인터페이스를 구현하여,   

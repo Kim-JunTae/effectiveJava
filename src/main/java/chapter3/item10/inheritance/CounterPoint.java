@@ -1,5 +1,6 @@
 package chapter3.item10.inheritance;
-import effectivejava.chapter3.item10.Point;
+
+import chapter3.item10.Point;
 
 import java.util.concurrent.atomic.*;
 

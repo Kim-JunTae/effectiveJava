@@ -30,6 +30,9 @@ public final class CaseInsensitiveString {
         List<CaseInsensitiveString> list = new ArrayList<>();
         list.add(cis);
 
+        System.out.println("CaseInsensitiveString : " + cis.equals(s));
+        System.out.println("String : " + s.equals(cis));
+
         System.out.println(list.contains(s));
     }
 
