@@ -8,7 +8,12 @@
 
 ---
 ### Item26.로 타입은 사용하지 말라
+- 제네릭 타입 : 제네릭 클래스 or 제네릭 인터페이스 : 선언 시 타입 매개변수가 쓰임
+- 제네릭 타입을 하나 정의하면 그에 딸린 로 타입(raw type)도 함께 정의된다.
+  로 타입이란 제네릭 타입에서 타입 매개변수를 전혀 사용하지 않을 때를 말한다.
+  (제네릭이 도입되기전 코드와 호환되도록 하기위한 궁여지책)
 
+- 로 타입을 쓰면 제네릭이 안겨주는 안전성과 표현력을 모두 잃게 된다. 
 - 핵심정리
     - 로 타입을 사용하면 런타임에 예외가 일어날 수 있으니 사용하면 안된다. 로 타입은 제네릭이 도입되기 이전 코드와의 호환성을 위해 제공될 뿐이다.
       빠르게 훑어보자면, Set<Object>는 어떤 타입의 객체도 저장할 수 있는 매개변수화 타입이고,   
@@ -20,7 +25,16 @@
 |한글용어|영문용어|예|아이템|
 |--------|------|------|------|
 |매개변수화 타입|parameterized type|List<String>|아이템26|
-    
+|실제 타입 매개변수|actual type parameter|String|아이템26|
+|제네릭 타입|generic type|List<E>|아이템26, 29|
+|정규 타입 매개변수|formal type parameter|E|아이템26|
+|비한정적 와일드카드 타입|unbounded wildcard type|List<?>|아이템26|
+|로 타입|raw type|List|아이템26|
+|한정적 타입 매개변수|bounded type bound|<E extends Number>|아이템29|
+|재귀적 타입 한정|recursive type bound|<T extends Comparable<T>>|아이템30|
+|한정적 와일드카드 타입|bounded wildcard type|List<? extends Number>|아이템31|
+|제네릭 메서드|generic method|static <E> List<E> asList(E[] a)|아이템30|
+|타입 토큰|type token|String.class|아이템33|
 
     
 ---
