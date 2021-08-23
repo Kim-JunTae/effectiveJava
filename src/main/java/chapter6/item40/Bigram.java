@@ -1,4 +1,5 @@
 package chapter6.item40;
+import java.io.Serializable;
 import java.util.*;
 
 // 코드 40-1 영어 알파벳 2개로 구성된 문자열(바이그램)을 표현하는 클래스 - 버그를 찾아보자. (246쪽)
